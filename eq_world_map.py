@@ -12,23 +12,29 @@ with open(filename) as f:
 
 all_eq_dicts = all_eq_data['features']
 
-mags = []
-lons = []
-lats = []
+mags        = []
+lons        = []
+lats        = []
+hover_texts = []
 for e in all_eq_dicts:
     mag = e['properties']['mag']
     lon = e['geometry']['coordinates'][0]
     lat = e['geometry']['coordinates'][1]
+
+    title = e['properties']['title']
+
     mags.append(mag)
     lons.append(lon)
     lats.append(lat)
+    hover_texts.append(title)
 
 data      = [Scattergeo(lon=lons, lat=lats)]
 data      = [
 {
- 'type': 'scattergeo',
- 'lon' : lons,
- 'lat' : lats,
+ 'type' : 'scattergeo',
+ 'lon'  : lons,
+ 'lat'  : lats,
+ 'text' : hover_texts,
  'marker' : {
     'size'        : [5*mag for mag in mags],
     'color'       : mags,
